@@ -1,10 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from database.database import Session
+from typing import Annotated
 
 import schemas
 from models import UserModel
+from routers.auth import get_current_user
 
 router = APIRouter()
+
 
 def get_db():
     db = Session()
@@ -12,6 +15,14 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+@router.get("/api/users/me", tags=["users"], response_model=schemas.User)
+async def read_users_me(
+    current_user: Annotated[schemas.User, Depends(get_current_user)],
+):
+    return current_user
+
 
 @router.get("/api/users/", tags=["users"], response_model=list[schemas.User])
 def get_users(db: Session = Depends(get_db)):

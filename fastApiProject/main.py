@@ -1,12 +1,14 @@
 from fastapi import FastAPI
 
 from database.database import db, base, Session
-from routers import users
+from routers import users, auth
+
 
 
 base.metadata.create_all(db)
 app = FastAPI()
 app.include_router(users.router)
+app.include_router(auth.router)
 
 
 
