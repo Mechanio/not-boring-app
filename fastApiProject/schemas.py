@@ -4,9 +4,9 @@ from typing import Annotated, Union
 
 class ActivitiesBase(BaseModel):
     name: str
-    description: str | None = None
     start: str
     finish: str | None = None
+
 
 class ActivitiesCreate(ActivitiesBase):
     pass

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from database.database import db, base, Session
-from routers import users, auth
+from routers import users, auth, activities
 
 
 
@@ -9,7 +9,7 @@ base.metadata.create_all(db)
 app = FastAPI()
 app.include_router(users.router)
 app.include_router(auth.router)
-
+app.include_router(activities.router)
 
 
 @app.get("/")
