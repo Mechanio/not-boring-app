@@ -1,12 +1,19 @@
+import datetime
+import enum
+
 from pydantic import BaseModel
 from typing import Annotated, Union
 
 
 class ActivitiesBase(BaseModel):
     name: str
-    start: str
-    finish: str | None = None
+    one_time_only: bool
+    repeat: str | None = None
+    start: datetime.datetime
+    finish: datetime.datetime | None = None
 
+    class Config:
+        use_enum_values = True
 
 class ActivitiesCreate(ActivitiesBase):
     pass

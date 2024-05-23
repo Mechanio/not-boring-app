@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
-from database.database import Session
+from ..database.database import Session
 from typing import Annotated
 
-import schemas
-from models import UserModel
-from routers.auth import get_current_user
+from .. import schemas
+from ..models import UserModel
+from .auth import get_current_user
 
 router = APIRouter()
 

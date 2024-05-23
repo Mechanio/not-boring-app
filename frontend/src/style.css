@@ -1,0 +1,54 @@
+.content{
+    /*position: relative;*/
+}
+
+
+/*.content-wrapper {*/
+/*  display: flex;*/
+/*  !*grid-template-columns: repeat(auto-fit, minmax(100px, 601px));*!*/
+/*  !*gap: 10px;*!*/
+/*  flex-wrap: wrap;*/
+/*  margin: 5px;*/
+/*  justify-content: space-around;*/
+/*  !*justify-content: flex-start;*!*/
+/*}*/
+
+.users {
+    /*flex-wrap: wrap;*/
+    /*justify-content: space-between;*/
+    /*overflow: hidden;*/
+    /*position: absolute;*/
+    /*right: 10px;*/
+}
+
+.progress-circle {
+  position: relative;
+  width: 36px;
+  height: 36px;
+}
+
+.circle-bg {
+  stroke: #eee;
+  stroke-width: 2.8;
+}
+
+.circle {
+  stroke: #4caf50;
+  stroke-width: 2.8;
+  stroke-dasharray: 75, 100;
+  stroke-linecap: round;
+}
+
+.activity {
+  min-width: 600px;
+  min-height: 75px;
+}
+
+.activity span {
+  font-size: 1.2rem;
+}
+
+.vertical-line {
+  border-left: 1px solid #dee2e6; /* Change color and width as needed */
+  height: 55px;
+}

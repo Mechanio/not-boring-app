@@ -2,11 +2,11 @@ from datetime import datetime, timedelta, timezone
 from typing import Annotated, Union
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from database.database import Session
+from ..database.database import Session
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt, JWTError
-import schemas
-from models import UserModel, RevokedTokenModel
+from .. import schemas
+from ..models import UserModel, RevokedTokenModel
 from config import Config
 
 

@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
-from database.database import Session
+from ..database.database import Session
 from typing import Annotated
 
-import schemas
-from models import ActivitiesModel
-from routers.auth import get_current_user
+from .. import schemas
+from ..models import UserModel, ActivitiesModel
+from .auth import get_current_user
 
 router = APIRouter()
 
@@ -29,8 +29,8 @@ def create_activity(
         current_user: Annotated[schemas.User, Depends(get_current_user)],
         activity: schemas.ActivitiesCreate, db: Session = Depends(get_db)
 ):
-    activity = ActivitiesModel(name=activity.name, user_id=current_user.id, start=activity.start,
-                               finish=activity.finish)
+    activity = ActivitiesModel(name=activity.name, user_id=current_user.id, one_time_only=activity.one_time_only,
+                               repeat=activity.repeat, start=activity.start, finish=activity.finish)
     activity.save_to_db(db)
     return activity
 

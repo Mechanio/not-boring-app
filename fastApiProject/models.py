@@ -1,11 +1,11 @@
 from datetime import datetime
 
-from sqlalchemy import Boolean, Column, ForeignKey, DateTime, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, DateTime, Integer, String, Enum
 from sqlalchemy.orm import relationship, Session
 from passlib.hash import pbkdf2_sha256 as sha256
 
-from database.database import base
 
+from .database.database import base
 
 class UserModel(base):
     __tablename__ = "users"
@@ -137,8 +137,10 @@ class ActivitiesModel(base):
     name = Column(String(100), nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship("UserModel", back_populates='activities')
-    start = Column(String(20), nullable=False)
-    finish = Column(String(20))
+    one_time_only = Column(Boolean(), default=True)
+    repeat = Column(String)
+    start = Column(DateTime, nullable=False)
+    finish = Column(DateTime)
 
     @classmethod
     def find_by_id(cls, db: Session, id_: int):
@@ -169,7 +171,7 @@ class ActivitiesModel(base):
         :return: list of dict representations of activities
         """
         activities = db.query(cls).order_by(cls.id).all()
-        return [cls.to_dict(activity) for activity in activities]
+        return [activity for activity in activities]
 
     @classmethod
     def delete_by_id(cls, db: Session, id_: int):
