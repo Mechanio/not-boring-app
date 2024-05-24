@@ -52,3 +52,20 @@
   border-left: 1px solid #dee2e6; /* Change color and width as needed */
   height: 55px;
 }
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1050;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+
+}
+
+
+.login {
+  min-width: 1000px;
+}

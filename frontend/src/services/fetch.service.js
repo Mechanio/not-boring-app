@@ -12,10 +12,15 @@ const getActivitiesInfo = async() => {
     return await axios.get("http://localhost:8000/api/activities")
 }
 
+const createActivity = (formData) => {
+    return axios.post("http://localhost:8000/api/activities/", formData)
+}
+
 const fetchservice = {
     getUsersInfo,
     getProfileInfo,
-    getActivitiesInfo
+    getActivitiesInfo,
+    createActivity
 }
 
 export default fetchservice

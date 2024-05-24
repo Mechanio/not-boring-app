@@ -8,7 +8,6 @@ export default function Login() {
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
     const navigate = useNavigate()
-
     const handleClick = async (event) => {
         event.preventDefault()
 
@@ -16,7 +15,7 @@ export default function Login() {
            const response = await authService.login(username, password)
             if (response && response.data && response.data.access_token) {
                 localStorage.setItem("user", JSON.stringify(response.data));
-                navigate('/')
+                navigate('/activities')
                 return response.data;
             } else {
                 throw new Error(response.response.data.message)
