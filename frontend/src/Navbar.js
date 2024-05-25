@@ -1,14 +1,10 @@
 import React from "react"
-// import {Nav, Navbar, NavDropdown} from 'react-bootstrap'
 import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import fetchservice from "./services/fetch.service";
-// import authService from "./services/auth.service";
-// import DropdownMenu from "react-bootstrap/DropdownMenu";
 import './style.css'
 
 export default function MyNavbar() {
-    const {pathname} = useLocation()
     const [profileInfo, setProfileInfo] = useState("");
 
     const fetchData = async () => {
@@ -23,7 +19,6 @@ export default function MyNavbar() {
     }, [])
 
   return (
-
           <div className="d-flex flex-column flex-shrink-0 p-3 bg-light " style={{
               width: '280px', height: '100vh',
               borderRightWidth: '2px', borderRightStyle: 'solid', borderColor: 'gray'
@@ -62,7 +57,5 @@ export default function MyNavbar() {
                   </li>
               </ul>
           </div>
-
-
   );
 }

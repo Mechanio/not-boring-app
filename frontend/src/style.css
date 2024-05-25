@@ -1,26 +1,3 @@
-.content{
-    /*position: relative;*/
-}
-
-
-/*.content-wrapper {*/
-/*  display: flex;*/
-/*  !*grid-template-columns: repeat(auto-fit, minmax(100px, 601px));*!*/
-/*  !*gap: 10px;*!*/
-/*  flex-wrap: wrap;*/
-/*  margin: 5px;*/
-/*  justify-content: space-around;*/
-/*  !*justify-content: flex-start;*!*/
-/*}*/
-
-.users {
-    /*flex-wrap: wrap;*/
-    /*justify-content: space-between;*/
-    /*overflow: hidden;*/
-    /*position: absolute;*/
-    /*right: 10px;*/
-}
-
 .progress-circle {
   position: relative;
   width: 36px;
@@ -65,7 +42,12 @@
 
 }
 
-
 .login {
   min-width: 1000px;
+}
+
+.crossed-text {
+  text-decoration-line: line-through;
+  text-decoration-style: solid;
+  text-decoration-thickness: 4px
 }

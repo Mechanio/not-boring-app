@@ -6,26 +6,7 @@ import fetchservice from "../services/fetch.service";
 
 const User = () => {
     const [users, setUsers] = useState([])
-    // const {id} = useParams()
     const navigate = useNavigate()
-
-    // const updateActor = async () => {
-    //     try {
-    //         const response = await fetchservice.updateActor(id, actor?.firstname, actor?.lastname)
-    //         if (response && response.data && response.data.message === "Updated") {
-    //             navigate("/actors")
-    //
-    //         } else {
-    //             throw new Error(response.response.data.message)
-    //         }
-    //     } catch (err) {
-    //         if (err.message === "Forbidden") {
-    //             alert("Only admins can update actor")
-    //         } else {
-    //             alert(err)
-    //         }
-    //     }
-    // }
 
     useEffect(() => {
         fetchservice.getUsersInfo()
@@ -58,7 +39,6 @@ const User = () => {
                             </tr>
                         ))}
                         </tbody>
-
                     </table>
                 </div>
             </form>

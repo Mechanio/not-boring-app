@@ -1,11 +1,11 @@
 from datetime import datetime
 
-from sqlalchemy import Boolean, Column, ForeignKey, DateTime, Integer, String, Enum
+from sqlalchemy import Boolean, Column, ForeignKey, DateTime, Integer, String
 from sqlalchemy.orm import relationship, Session
 from passlib.hash import pbkdf2_sha256 as sha256
 
-
 from .database.database import base
+
 
 class UserModel(base):
     __tablename__ = "users"
@@ -141,6 +141,7 @@ class ActivitiesModel(base):
     repeat = Column(String)
     start = Column(DateTime, nullable=False)
     finish = Column(DateTime)
+    done = Column(Boolean(), default=False)
 
     @classmethod
     def find_by_id(cls, db: Session, id_: int):

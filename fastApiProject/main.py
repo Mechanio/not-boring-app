@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .database.database import db, base, Session
+from .database.database import db, base
 from .routers import users, auth, activities
 
 

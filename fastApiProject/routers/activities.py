@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from ..database.database import Session
 from typing import Annotated
 
 from .. import schemas
-from ..models import UserModel, ActivitiesModel
+from ..models import ActivitiesModel
 from .auth import get_current_user
 
 router = APIRouter()
@@ -35,8 +35,12 @@ def create_activity(
     return activity
 
 
-
-# @router.get("/api/users/", tags=["users"], response_model=list[schemas.User])
-# def get_users(db: Session = Depends(get_db)):
-#     users = UserModel.return_all(db, 0, 10)
-#     return users
+@router.patch("/api/activities/{item_id}", tags=["activities"], response_model=schemas.Activities)
+def patch_activity(
+        current_user: Annotated[schemas.User, Depends(get_current_user)],
+        item_id: int, update: schemas.DoneUpdate, db: Session = Depends(get_db)
+):
+    activity = ActivitiesModel.find_by_id(db, item_id)
+    activity.done = update.done
+    activity.save_to_db(db)
+    return activity

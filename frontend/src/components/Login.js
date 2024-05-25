@@ -8,9 +8,9 @@ export default function Login() {
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
     const navigate = useNavigate()
+
     const handleClick = async (event) => {
         event.preventDefault()
-
         try {
            const response = await authService.login(username, password)
             if (response && response.data && response.data.access_token) {

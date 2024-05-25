@@ -16,11 +16,16 @@ const createActivity = (formData) => {
     return axios.post("http://localhost:8000/api/activities/", formData)
 }
 
+const patchActivity = (item_id, done) => {
+    return axios.patch(`http://localhost:8000/api/activities/${item_id}`, {done})
+}
+
 const fetchservice = {
     getUsersInfo,
     getProfileInfo,
     getActivitiesInfo,
-    createActivity
+    createActivity,
+    patchActivity
 }
 
 export default fetchservice

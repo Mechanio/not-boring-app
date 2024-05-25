@@ -1,8 +1,7 @@
 import datetime
-import enum
 
 from pydantic import BaseModel
-from typing import Annotated, Union
+from typing import Union
 
 
 class ActivitiesBase(BaseModel):
@@ -15,6 +14,7 @@ class ActivitiesBase(BaseModel):
     class Config:
         use_enum_values = True
 
+
 class ActivitiesCreate(ActivitiesBase):
     pass
 
@@ -22,9 +22,14 @@ class ActivitiesCreate(ActivitiesBase):
 class Activities(ActivitiesBase):
     id: int
     user_id: int
+    done: bool | None = False
 
     class Config:
         orm_mode = True
+
+
+class DoneUpdate(BaseModel):
+    done: bool
 
 
 class UserBase(BaseModel):
