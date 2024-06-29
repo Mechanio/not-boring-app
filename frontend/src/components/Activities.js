@@ -45,6 +45,7 @@ const Activities = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
+            console.log(formData)
             formData.start = new Date(formData.start)
             formData.finish = new Date(formData.finish)
             console.log(formData)
@@ -100,7 +101,7 @@ const Activities = () => {
                         <div className="modal-dialog">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h5 className="modal-title">Input Form</h5>
+                                    <h5 className="modal-title">Add new activity</h5>
                                     <button type="button" className="btn-close"
                                             onClick={() => setShowPopup(false)}></button>
                                 </div>
@@ -156,7 +157,7 @@ const Activities = () => {
                                     className="d-flex align-items-center justify-content-between border rounded p-2 my-2 activity">
                                     <div className="d-flex align-items-center">
                                         <div className="text-center" style={{minWidth: '60px'}}>
-                                            <div>{format(activity.start, "HH:mm")}</div>
+                                            <div>{format(activity.start,  "HH:mm")}</div>
                                             {activity.finish && (
                                                 <>
                                                     <div className="border-bottom w-100 my-1"/>
