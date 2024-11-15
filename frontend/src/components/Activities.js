@@ -17,7 +17,7 @@ const Activities = () => {
     })
 
 
-    const handleClick = async (event, activityId, isDone) => {
+    const handleClickPatchActivity = async (event, activityId, isDone) => {
         event.preventDefault()
 
         try {
@@ -34,7 +34,7 @@ const Activities = () => {
         }
     }
 
-    const handleChange = (e) => {
+    const handleChangeCreateActivity = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData(prevState => ({
             ...prevState,
@@ -42,13 +42,11 @@ const Activities = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmitCreateActivity = (e) => {
         e.preventDefault();
         try {
-            console.log(formData)
             formData.start = new Date(formData.start)
             formData.finish = new Date(formData.finish)
-            console.log(formData)
 
             const response = fetchservice.createActivity(formData)
             if (response) {
@@ -95,6 +93,8 @@ const Activities = () => {
     return (
         <div className="activities" style={{ paddingLeft: "15px" }}>
             <div className="container-fluid">
+                <div>
+
                 <button className="btn btn-primary mt-3" onClick={() => setShowPopup(true)}>Create Activity</button>
                 {showPopup && (
                     <div className="modal d-block modal-container">
@@ -106,33 +106,33 @@ const Activities = () => {
                                             onClick={() => setShowPopup(false)}></button>
                                 </div>
                                 <div className="modal-body">
-                                    <form onSubmit={handleSubmit}>
+                                    <form onSubmit={handleSubmitCreateActivity}>
                                         <div className="mb-3">
                                             <label className="form-label">Name:</label>
                                             <input type="text" className="form-control" name="name"
-                                                   value={formData.name} onChange={handleChange}/>
+                                                   value={formData.name} onChange={handleChangeCreateActivity}/>
                                         </div>
                                         <div className="mb-3 form-check">
                                             <input type="checkbox" className="form-check-input" name="one_time_only"
-                                                   checked={formData.one_time_only} onChange={handleChange}/>
+                                                   checked={formData.one_time_only} onChange={handleChangeCreateActivity}/>
                                             <label className="form-check-label">Disposable</label>
                                         </div>
                                         {!formData.one_time_only && (
                                             <div className="mb-3">
                                                 <label className="form-label">Repeat:</label>
                                                 <input type="text" className="form-control" name="repeat"
-                                                       value={formData.repeat} onChange={handleChange}/>
+                                                       value={formData.repeat} onChange={handleChangeCreateActivity}/>
                                             </div>
                                         )}
                                         <div className="mb-3">
                                             <label className="form-label">Date and time:</label>
                                             <input type="datetime-local" className="form-control" name="start"
-                                                   value={formData.start} onChange={handleChange}/>
+                                                   value={formData.start} onChange={handleChangeCreateActivity}/>
                                         </div>
                                         <div className="mb-3">
                                             <label className="form-label">Finish:</label>
                                             <input type="datetime-local" className="form-control" name="finish"
-                                                   value={formData.finish} onChange={handleChange}/>
+                                                   value={formData.finish} onChange={handleChangeCreateActivity}/>
                                         </div>
                                         <button type="submit" className="btn btn-primary">Submit</button>
                                     </form>
@@ -142,6 +142,19 @@ const Activities = () => {
                     </div>
                 )}
 
+
+                <div className="dropdown mt-3">
+                    <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"> Sort By
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a className="dropdown-item" href="#">Date</a></li>
+                        <li><a className="dropdown-item" href="#">Priority</a></li>
+                        <li><a className="dropdown-item" href="#">Status</a></li>
+                    </ul>
+                </div>
+
+                </div>
                 {activities.map((activity, index) => {
                     const curDay = format(activity.start, "EEEE")
                     const showDayHeader = curDay !== lastDay
@@ -149,7 +162,7 @@ const Activities = () => {
                         lastDay = curDay
                     }
                     return (
-                        <Fragment>
+                        <Fragment key={activity.id}>
                             {showDayHeader &&
                                 <h5 className="mt-4">{curDay} ({format(activity.start, "dd.MM.yyyy")})</h5>}
                             <div key={activity.id}>
@@ -157,7 +170,7 @@ const Activities = () => {
                                     className="d-flex align-items-center justify-content-between border rounded p-2 my-2 activity">
                                     <div className="d-flex align-items-center">
                                         <div className="text-center" style={{minWidth: '60px'}}>
-                                            <div>{format(activity.start,  "HH:mm")}</div>
+                                            <div>{format(activity.start, "HH:mm")}</div>
                                             {activity.finish && (
                                                 <>
                                                     <div className="border-bottom w-100 my-1"/>
@@ -167,43 +180,45 @@ const Activities = () => {
                                         </div>
                                         <div className="vertical-line"></div>
                                         <div className="ms-3">
-                                            {activity.done ?(
+                                            {activity.done ? (
                                                 <span className="crossed-text">{activity.name}</span>
-                                                ) : (
-                                                    <span>{activity.name}</span>
-                                                )}
+                                            ) : (
+                                                <span>{activity.name}</span>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="d-flex align-items-center">
-                      {/*                  <div className="progress-circle me-3">*/}
-                      {/*                      <svg width="24" height="24" viewBox="0 0 36 36">*/}
-                      {/*                          <path*/}
-                      {/*                              className="circle-bg"*/}
-                      {/*                              d="M18 2.0845*/}
-                      {/*a 15.9155 15.9155 0 0 1 0 31.831*/}
-                      {/*a 15.9155 15.9155 0 0 1 0 -31.831"*/}
-                      {/*                              fill="none"*/}
-                      {/*                              stroke="#eee"*/}
-                      {/*                              strokeWidth="2.8"*/}
-                      {/*                          />*/}
-                      {/*                          <path*/}
-                      {/*                              className="circle"*/}
-                      {/*                              d="M18 2.0845*/}
-                      {/*a 15.9155 15.9155 0 0 1 0 31.831*/}
-                      {/*a 15.9155 15.9155 0 0 1 0 -31.831"*/}
-                      {/*                              fill="none"*/}
-                      {/*                              stroke="#4caf50"*/}
-                      {/*                              strokeWidth="2.8"*/}
-                      {/*                              strokeDasharray="75, 100"*/}
-                      {/*                              strokeLinecap="round"*/}
-                      {/*                          />*/}
-                      {/*                      </svg>*/}
-                      {/*                  </div>*/}
-                                        <form onSubmit={(e) =>handleClick(e, activity.id, !activity.done)}>
+                                        {/*                  <div className="progress-circle me-3">*/}
+                                        {/*                      <svg width="24" height="24" viewBox="0 0 36 36">*/}
+                                        {/*                          <path*/}
+                                        {/*                              className="circle-bg"*/}
+                                        {/*                              d="M18 2.0845*/}
+                                        {/*a 15.9155 15.9155 0 0 1 0 31.831*/}
+                                        {/*a 15.9155 15.9155 0 0 1 0 -31.831"*/}
+                                        {/*                              fill="none"*/}
+                                        {/*                              stroke="#eee"*/}
+                                        {/*                              strokeWidth="2.8"*/}
+                                        {/*                          />*/}
+                                        {/*                          <path*/}
+                                        {/*                              className="circle"*/}
+                                        {/*                              d="M18 2.0845*/}
+                                        {/*a 15.9155 15.9155 0 0 1 0 31.831*/}
+                                        {/*a 15.9155 15.9155 0 0 1 0 -31.831"*/}
+                                        {/*                              fill="none"*/}
+                                        {/*                              stroke="#4caf50"*/}
+                                        {/*                              strokeWidth="2.8"*/}
+                                        {/*                              strokeDasharray="75, 100"*/}
+                                        {/*                              strokeLinecap="round"*/}
+                                        {/*                          />*/}
+                                        {/*                      </svg>*/}
+                                        {/*                  </div>*/}
+                                        <form onSubmit={(e) => handleClickPatchActivity(e, activity.id, !activity.done)}>
                                             {!activity.done ? (
-                                                <button className="btn btn-outline-secondary" type="submit">Not Done</button>
+                                                <button className="btn btn-outline-secondary" type="submit">Not
+                                                    Done</button>
                                             ) : (
-                                                <button className="btn btn-success" style={{ minWidth: "96.2px"}} type="submit">Done</button>
+                                                <button className="btn btn-success" style={{minWidth: "96.2px"}}
+                                                        type="submit">Done</button>
                                             )}
                                         </form>
                                     </div>
