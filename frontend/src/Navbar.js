@@ -19,7 +19,7 @@ export default function MyNavbar() {
     }, [])
 
   return (
-          <div className="d-flex flex-column flex-shrink-0 p-3 bg-light " style={{
+          <div className="my-navbar d-flex flex-column flex-shrink-0 p-3 bg-light " style={{
               width: '280px', height: '100vh',
               borderRightWidth: '2px', borderRightStyle: 'solid', borderColor: 'gray'
           }}>

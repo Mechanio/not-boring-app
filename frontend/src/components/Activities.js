@@ -2,12 +2,16 @@ import React, {useState, useEffect, Fragment} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import fetchservice from "../services/fetch.service";
+import { HonestWeekPicker } from "../calendar/weekPicker";
 
 
 const Activities = () => {
     const [activities, setActivities] = useState([])
     let lastDay = null
     const [showPopup, setShowPopup] = useState(false)
+    const [sortBy, setSortBy] = useState("date")
+    const [sortedActivities, setSortedActivities] = useState([]);
+    const [week, setWeek] = useState({ firstDay: new Date()});
     const [formData, setFormData] = useState({
         name: '',
         one_time_only: false,
@@ -15,6 +19,15 @@ const Activities = () => {
         start: '',
         finish: ''
     })
+
+    const onChangeChooseWeek = (week) => {
+        setWeek(week);
+      };
+
+
+    const handleSortChange = (option) => {
+        setSortBy(option);
+    };
 
 
     const handleClickPatchActivity = async (event, activityId, isDone) => {
@@ -78,84 +91,106 @@ const Activities = () => {
             .then((response) => {
                     const activitiesData = response.data.filter(activity => {
                         const startDate = new Date(activity.start)
-                        const conditionDate = new Date()
+                        const conditionDate = week.firstDay
                         return format(startDate, "II") === format(conditionDate, "II")
                     }).map(activity => ({
                     ...activity,
                     start: new Date(activity.start),
                     finish: activity.finish ? new Date(activity.finish) : null
-                })).sort((a, b) => a.start - b.start);
+                }));
                 setActivities(activitiesData);
                 }
             )
-    }, [])
+    }, [week])
+
+    useEffect(() => {
+        let sorted = [...activities];
+
+        if (sortBy === "date") {
+            sorted.sort((a, b) => a.start - b.start);
+        } else if (sortBy === "status") {
+            sorted.sort((a, b) => {
+                if (a.done !== b.done) {
+                    return a.done - b.done;
+                }
+                // If `done` status is the same, sort by start date
+                return a.start - b.start;
+            })
+        }
+
+        setSortedActivities(sorted);
+    }, [sortBy, activities])
+
 
     return (
         <div className="activities" style={{ paddingLeft: "15px" }}>
             <div className="container-fluid">
                 <div>
-
-                <button className="btn btn-primary mt-3" onClick={() => setShowPopup(true)}>Create Activity</button>
-                {showPopup && (
-                    <div className="modal d-block modal-container">
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Add new activity</h5>
-                                    <button type="button" className="btn-close"
-                                            onClick={() => setShowPopup(false)}></button>
-                                </div>
-                                <div className="modal-body">
-                                    <form onSubmit={handleSubmitCreateActivity}>
-                                        <div className="mb-3">
-                                            <label className="form-label">Name:</label>
-                                            <input type="text" className="form-control" name="name"
-                                                   value={formData.name} onChange={handleChangeCreateActivity}/>
-                                        </div>
-                                        <div className="mb-3 form-check">
-                                            <input type="checkbox" className="form-check-input" name="one_time_only"
-                                                   checked={formData.one_time_only} onChange={handleChangeCreateActivity}/>
-                                            <label className="form-check-label">Disposable</label>
-                                        </div>
-                                        {!formData.one_time_only && (
+                    <button className="btn btn-primary" onClick={() => setShowPopup(true)}>Create Activity</button>
+                    {showPopup && (
+                        <div className="modal d-block modal-container">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title">Add new activity</h5>
+                                        <button type="button" className="btn-close"
+                                                onClick={() => setShowPopup(false)}></button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <form onSubmit={handleSubmitCreateActivity}>
                                             <div className="mb-3">
-                                                <label className="form-label">Repeat:</label>
-                                                <input type="text" className="form-control" name="repeat"
-                                                       value={formData.repeat} onChange={handleChangeCreateActivity}/>
+                                                <label className="form-label">Name:</label>
+                                                <input type="text" className="form-control" name="name"
+                                                       value={formData.name} onChange={handleChangeCreateActivity}/>
                                             </div>
-                                        )}
-                                        <div className="mb-3">
-                                            <label className="form-label">Date and time:</label>
-                                            <input type="datetime-local" className="form-control" name="start"
-                                                   value={formData.start} onChange={handleChangeCreateActivity}/>
-                                        </div>
-                                        <div className="mb-3">
-                                            <label className="form-label">Finish:</label>
-                                            <input type="datetime-local" className="form-control" name="finish"
-                                                   value={formData.finish} onChange={handleChangeCreateActivity}/>
-                                        </div>
-                                        <button type="submit" className="btn btn-primary">Submit</button>
-                                    </form>
+                                            <div className="mb-3 form-check">
+                                                <input type="checkbox" className="form-check-input" name="one_time_only"
+                                                       checked={formData.one_time_only}
+                                                       onChange={handleChangeCreateActivity}/>
+                                                <label className="form-check-label">Disposable</label>
+                                            </div>
+                                            {!formData.one_time_only && (
+                                                <div className="mb-3">
+                                                    <label className="form-label">Repeat:</label>
+                                                    <input type="text" className="form-control" name="repeat"
+                                                           value={formData.repeat}
+                                                           onChange={handleChangeCreateActivity}/>
+                                                </div>
+                                            )}
+                                            <div className="mb-3">
+                                                <label className="form-label">Date and time:</label>
+                                                <input type="datetime-local" className="form-control" name="start"
+                                                       value={formData.start} onChange={handleChangeCreateActivity}/>
+                                            </div>
+                                            <div className="mb-3">
+                                                <label className="form-label">Finish:</label>
+                                                <input type="datetime-local" className="form-control" name="finish"
+                                                       value={formData.finish} onChange={handleChangeCreateActivity}/>
+                                            </div>
+                                            <button type="submit" className="btn btn-primary">Submit</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    )}
+
+                    <div className="weekCalendar mt-3 px-4">
+                        <HonestWeekPicker onChange={onChangeChooseWeek}/>
                     </div>
-                )}
 
-
-                <div className="dropdown mt-3">
-                    <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false"> Sort By
-                    </button>
-                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a className="dropdown-item" href="#">Date</a></li>
-                        <li><a className="dropdown-item" href="#">Priority</a></li>
-                        <li><a className="dropdown-item" href="#">Status</a></li>
-                    </ul>
-                </div>
+                    <div className="dropdown mt-3">
+                        <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false"> Sort By
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a className="dropdown-item" onClick={() => handleSortChange("date")}>Date</a></li>
+                            <li><a className="dropdown-item" onClick={() => handleSortChange("status")}>Status</a></li>
+                        </ul>
+                    </div>
 
                 </div>
-                {activities.map((activity, index) => {
+                {sortedActivities.map((activity, index) => {
                     const curDay = format(activity.start, "EEEE")
                     const showDayHeader = curDay !== lastDay
                     if (showDayHeader) {

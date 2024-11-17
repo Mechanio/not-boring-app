@@ -52,8 +52,26 @@
   text-decoration-thickness: 4px
 }
 
+.button-create {
+  position: relative; /* Position the dropdown relative to its parent */
+  display: inline-block;
+}
+
 .dropdown {
   position: relative; /* Position the dropdown relative to its parent */
   display: inline-block;
   float: right;
+}
+
+.weekCalendar {
+  position: relative; /* Position the dropdown relative to its parent */
+  display: inline-block;
+}
+
+.my-navbar {
+  position: fixed;
+}
+
+.activities {
+  margin-left: 280px;
 }
