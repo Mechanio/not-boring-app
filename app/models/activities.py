@@ -12,6 +12,8 @@ class ActivitiesModel(EntityMeta):
     user = relationship("UserModel", back_populates='activities')
     one_time_only = Column(Boolean(), default=True)
     repeat = Column(String)
+    activity_list_id = Column(Integer, ForeignKey('activity_lists.id'))
+    activity_lists = relationship("ActivityListsModel", back_populates='activities')
     start = Column(DateTime, nullable=False)
     finish = Column(DateTime)
     done = Column(Boolean(), default=False)
@@ -22,6 +24,7 @@ class ActivitiesModel(EntityMeta):
             "name": self.name.__str__(),
             "one_time_only": self.one_time_only.__str__(),
             "repeat": self.repeat.__str__(),
+            "activity_list_id": self.activity_list_id.__str__(),
             "start": self.start.__str__(),
             "finish": self.finish.__str__(),
             "user_id": self.user_id.__str__(),

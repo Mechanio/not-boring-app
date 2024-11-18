@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
 from .activities import Activities
+from .activity_lists import ActivityLists
 
 
 class UserBase(BaseModel):
@@ -17,3 +18,4 @@ class User(UserBase):
     id: int
     is_active: bool
     activities: list[Activities] = []
+    activity_lists: list[ActivityLists] = []

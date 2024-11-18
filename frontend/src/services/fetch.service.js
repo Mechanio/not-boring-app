@@ -14,6 +14,15 @@ const getActivitiesInfo = async() => {
     return await axios.get("http://localhost:8000/api/activities/me")
 }
 
+const getListActivitiesInfo = async(id) => {
+    // return await axios.get("http://localhost:8000/api/activities")
+    return await axios.get(`http://localhost:8000/api/activity_lists/${id}`)
+}
+
+const createListActivities = (formData) => {
+    return axios.post("http://localhost:8000/api/activity_lists/", formData)
+}
+
 const createActivity = (formData) => {
     return axios.post("http://localhost:8000/api/activities/", formData)
 }
@@ -27,7 +36,9 @@ const fetchservice = {
     getProfileInfo,
     getActivitiesInfo,
     createActivity,
-    patchActivity
+    patchActivity,
+    getListActivitiesInfo,
+    createListActivities
 }
 
 export default fetchservice

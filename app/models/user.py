@@ -15,6 +15,8 @@ class UserModel(EntityMeta):
     is_active = Column(Boolean(), nullable=False)
     activities = relationship("ActivitiesModel", lazy='dynamic', cascade="all, delete-orphan",
                           foreign_keys="ActivitiesModel.user_id")
+    activity_lists = relationship("ActivityListsModel", lazy='dynamic', cascade="all, delete-orphan",
+                          foreign_keys="ActivityListsModel.user_id")
 
     @staticmethod
     def generate_hash(password):
@@ -43,5 +45,6 @@ class UserModel(EntityMeta):
             "email": self.email.__str__(),
             "hashed_password": self.hashed_password.__str__(),
             "is_active": self.is_active.__str__(),
-            "activities": self.activities
+            "activities": self.activities,
+            "activity_lists": self.activity_lists,
         }

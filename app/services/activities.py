@@ -14,7 +14,7 @@ class ActivitiesService:
         self.activitiesRepository = activitiesRepository
 
     def create(self, activity_body: ActivitiesBase, user_id: int)-> ActivitiesModel:
-        return self.activitiesRepository.create(ActivitiesModel(name=activity_body.name, user_id=user_id,
+        return self.activitiesRepository.create(ActivitiesModel(name=activity_body.name, user_id=user_id, activity_list_id=activity_body.activity_list_id,
                                                                 one_time_only=activity_body.one_time_only, repeat=activity_body.repeat,
                                                                 start=activity_body.start, finish=activity_body.finish))
 

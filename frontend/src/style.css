@@ -75,3 +75,7 @@
 .activities {
   margin-left: 280px;
 }
+
+.dropdown-item:hover{
+  background-color: #d9d6d6;
+}
