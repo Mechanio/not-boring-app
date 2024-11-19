@@ -79,3 +79,38 @@
 .dropdown-item:hover{
   background-color: #d9d6d6;
 }
+
+.form-signin {
+  width: 100%;
+  padding: 35px;
+}
+
+.login-bg {
+    background-color: #f8f9fa;
+    height: 100vh;
+}
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* Full viewport height */
+    width: 100vw; /* Full viewport height */
+    margin: 0; /* Remove default margins */
+}
+
+/* Centered form */
+.login-form {
+    background: #ffffff; /* Optional: Background color for the form */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    width: 100%;
+    max-width: 400px; /* Limit form width */
+    text-align: center;
+}
+
+.form-signin button {
+    margin-right: 5px; /* Adds space to the right of each button */
+    margin-left: 10px; /* Adds space to the right of each button */
+}

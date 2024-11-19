@@ -28,6 +28,9 @@ const login = (username, password) => {
     })
 };
 
+const createUser = (formData) => {
+    return axios.post("http://localhost:8000/api/auth/registration", formData)
+}
 // const logout = () => {
 //     return axios
 //         .post("http://localhost:5000/api/auth/logout-access", {data: "data"})
@@ -52,8 +55,10 @@ const getAccessToken = () => {
 
 const authGuard = (pathname, navigate) => {
     const accessToken = getAccessToken()
+    const publicPaths = ['/auth/registration', '/auth/login'];
 
-    if (!accessToken && !['/'].includes(pathname)) {
+    // if (!accessToken && !['/'].includes(pathname)) {
+    if (!accessToken && !publicPaths.includes(pathname)) {
         navigate('/auth/login')
     }
 }
@@ -74,7 +79,7 @@ const authInterceptor = () => {
          (error) => {
         //catches if the session ended!
          if (error.response && error.response.status === 401) {
-             if (window.location !== 'http://localhost:3000/auth/login') {
+             if (window.location !== 'http://localhost:3000/auth/login' || window.location!== 'http://localhost:3000/auth/registration') {
                  localStorage.removeItem("user")
                  window.location = '/auth/login'
              }
@@ -90,7 +95,8 @@ const authService = {
     getCurrentUser,
     getAccessToken,
     authGuard,
-    authInterceptor
+    authInterceptor,
+    createUser
 }
 
 export default authService

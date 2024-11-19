@@ -6,6 +6,7 @@ import authService from "./services/auth.service"
 import Login from "./components/Login";
 import Activities from "./components/Activities";
 import ListActivities from "./components/ListActivities";
+import Registration from "./components/Registration";
 
 function App() {
     const { pathname } = useLocation()
@@ -23,6 +24,7 @@ function App() {
       {showNavbar && <MyNavbar />}
           <Routes>
             <Route exact path="/auth/login" element={<Login/>}/>
+            <Route exact path="/auth/registration" element={<Registration/>}/>
             <Route exact path="/user" element={<User/>}/>
             <Route exact path="/activities" element={<Activities/>}/>
             <Route exact path="/list_activities/:id" element={<ListActivities/>}/>

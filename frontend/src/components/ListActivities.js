@@ -99,8 +99,8 @@ const ListActivities = () => {
                         return format(startDate, "II") === format(conditionDate, "II")
                     }).map(activity => ({
                     ...activity,
-                    start: new Date(activity.start),
-                    finish: activity.finish ? new Date(activity.finish) : null
+                    start: new Date(activity.start + 'Z'),
+                    finish: activity.finish ? new Date(activity.finish + 'Z') : null
                 }));
                 setActivities(activitiesData);
                 }
