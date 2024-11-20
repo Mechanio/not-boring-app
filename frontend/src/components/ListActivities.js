@@ -1,5 +1,5 @@
 import React, {useState, useEffect, Fragment} from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import fetchservice from "../services/fetch.service";
 import { HonestWeekPicker } from "../calendar/weekPicker";
@@ -227,30 +227,6 @@ const ListActivities = () => {
                                         </div>
                                     </div>
                                     <div className="d-flex align-items-center">
-                                        {/*                  <div className="progress-circle me-3">*/}
-                                        {/*                      <svg width="24" height="24" viewBox="0 0 36 36">*/}
-                                        {/*                          <path*/}
-                                        {/*                              className="circle-bg"*/}
-                                        {/*                              d="M18 2.0845*/}
-                                        {/*a 15.9155 15.9155 0 0 1 0 31.831*/}
-                                        {/*a 15.9155 15.9155 0 0 1 0 -31.831"*/}
-                                        {/*                              fill="none"*/}
-                                        {/*                              stroke="#eee"*/}
-                                        {/*                              strokeWidth="2.8"*/}
-                                        {/*                          />*/}
-                                        {/*                          <path*/}
-                                        {/*                              className="circle"*/}
-                                        {/*                              d="M18 2.0845*/}
-                                        {/*a 15.9155 15.9155 0 0 1 0 31.831*/}
-                                        {/*a 15.9155 15.9155 0 0 1 0 -31.831"*/}
-                                        {/*                              fill="none"*/}
-                                        {/*                              stroke="#4caf50"*/}
-                                        {/*                              strokeWidth="2.8"*/}
-                                        {/*                              strokeDasharray="75, 100"*/}
-                                        {/*                              strokeLinecap="round"*/}
-                                        {/*                          />*/}
-                                        {/*                      </svg>*/}
-                                        {/*                  </div>*/}
                                         <form onSubmit={(e) => handleClickPatchActivity(e, activity.id, !activity.done)}>
                                             {!activity.done ? (
                                                 <button className="btn btn-outline-secondary" type="submit">Not

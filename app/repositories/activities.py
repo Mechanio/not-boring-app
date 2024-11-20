@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from fastapi import Depends
-from sqlalchemy.orm import Session, lazyload
+from sqlalchemy.orm import Session
 
 from configs.database import get_db_connection
 from models.activities import ActivitiesModel
@@ -21,8 +21,6 @@ class ActivitiesRepository:
 
         return query.offset(offset).limit(limit).all()
 
-    # def get(self, activity: ActivitiesModel) -> ActivitiesModel:
-    #     return self.db.get(activity, activity.id, options=[lazyload(ActivitiesModel.user)])
     def get(self, activity_id: int) -> ActivitiesModel:
         return self.db.query(ActivitiesModel).filter_by(id=activity_id).first()
 

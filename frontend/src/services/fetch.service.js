@@ -5,7 +5,6 @@ const getUsersInfo = async () => {
 }
 
 const getProfileInfo = async() => {
-    // return await axios.get("http://localhost:8000/api/users/me")
     return await axios.get("http://localhost:8000/api/user/me")
 }
 

@@ -1,8 +1,8 @@
-from typing import List, Optional, Annotated
+from typing import List, Annotated
 
 from fastapi import APIRouter, Depends, status
 
-from schemas.activities import Activities, ActivitiesBase, ActivitiesPatch
+from schemas.activities import Activities
 from schemas.activity_lists import ActivityLists, ActivityListsBase
 from services.activity_lists import ActivityListsService
 from services.auth import AuthService, oauth2_scheme

@@ -10,7 +10,6 @@ class ActivitiesBase(BaseModel):
     repeat: str | None = None
     start: datetime.datetime
     activity_list_id: int
-    # finish: datetime.datetime | None = None
     finish: Optional[datetime.datetime] = None
 
 

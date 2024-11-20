@@ -21,19 +21,6 @@ export default function MyNavbar() {
     }, [])
 
 
-    // const fetchData = async () => {
-    //     await fetchservice.getProfileInfo()
-    //         .then((response) => {
-    //             setProfileInfo(response.data)
-    //             console.log(profileInfo)
-    //             setActivityLists(profileInfo.activity_lists)
-    //         })
-    // }
-    //
-    // useEffect(() => {
-    //     fetchData()
-    //     console.log(profileInfo)
-    // }, [])
       // Handle input submission
     const handleNewListSubmit = async () => {
         if (newListName.name.trim() === "") return;
@@ -80,13 +67,6 @@ export default function MyNavbar() {
               )}
               <div key="new-list">
                   <li className="nav-item">
-                      {/*<a className="nav-link" href="#">*/}
-                      {/*    <svg width="20" height="20" viewBox="0 0 20 20" fill="#7B7C7C" xmlns="http://www.w3.org/2000/svg">*/}
-                      {/*        <path d="M10.8036 9.19643V3.61607C10.8036 3.32007 10.686 3.03619 10.4767 2.82689C10.2674 2.61759 9.9835 2.5 9.6875 2.5C9.3915 2.5 9.10762 2.61759 8.89832 2.82689C8.68901 3.03619 8.57143 3.32007 8.57143 3.61607V9.19643H2.99107C2.69507 9.19643 2.41119 9.31401 2.20189 9.52332C1.99259 9.73262 1.875 10.0165 1.875 10.3125C1.875 10.6085 1.99259 10.8924 2.20189 11.1017C2.41119 11.311 2.69507 11.4286 2.99107 11.4286H8.57143V17.0089C8.57143 17.3049 8.68901 17.5888 8.89832 17.7981C9.10762 18.0074 9.3915 18.125 9.6875 18.125C9.9835 18.125 10.2674 18.0074 10.4767 17.7981C10.686 17.5888 10.8036 17.3049 10.8036 17.0089V11.4286H16.3839C16.6799 11.4286 16.9638 11.311 17.1731 11.1017C17.3824 10.8924 17.5 10.6085 17.5 10.3125C17.5 10.0165 17.3824 9.73262 17.1731 9.52332C16.9638 9.31401 16.6799 9.19643 16.3839 9.19643H10.8036Z"*/}
-                      {/*            fill="#7B7C7C"></path>*/}
-                      {/*    </svg>*/}
-                      {/*    New List*/}
-                      {/*</a>*/}
                       {isAddingNewList ? (
                           <input type="text" className="form-control" placeholder="Enter list name" value={newListName.name}
                             onChange={(e) => setNewListName({name: e.target.value})}

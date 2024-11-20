@@ -1,7 +1,5 @@
-from typing import List, Optional, Type
-
 from fastapi import Depends
-from sqlalchemy.orm import Session, lazyload
+from sqlalchemy.orm import Session
 
 from configs.database import get_db_connection
 from models.activity_lists import ActivityListsModel

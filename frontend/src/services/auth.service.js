@@ -1,26 +1,11 @@
 import axios from "axios";
 
-// const signup = (email, password) => {
-//   return axios
-//     .post(API_URL + "/signup", {
-//       email,
-//       password,
-//     })
-//     .then((response) => {
-//       if (response.data.accessToken) {
-//         localStorage.setItem("user", JSON.stringify(response.data));
-//       }
-//
-//       return response.data;
-//     });
-// };
 
 // username-email
 const login = (username, password) => {
     const params = new URLSearchParams();
     params.append('username', username);
     params.append('password', password);
-    // return axios.post("http://localhost:8000/api/login", params, {
     return axios.post("http://localhost:8000/api/auth/login", params, {
         headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
