@@ -24,7 +24,7 @@ sudo apt install npm
 ```
 
 ## How to start it?
-
+## Fill .env variables
 #### API backend (in app directory)
 ```bash
 uvicorn app:app --reload
