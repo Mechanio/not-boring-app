@@ -4,3 +4,5 @@ pydantic==2.9.2
 pydantic_settings==2.6.1
 python_jose==3.3.0
 SQLAlchemy==2.0.30
+uvicorn==0.29.0
+python-multipart==0.0.9
